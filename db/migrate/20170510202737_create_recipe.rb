@@ -1,6 +1,6 @@
 class CreateRecipe < ActiveRecord::Migration[5.1]
   def change
-    create_table(:recipe) do |t|
+    create_table(:recipes) do |t|
       t.column(:name, :string)
       t.column(:recipe_tag_id, :int)
       t.column(:ingredient_recipe_id, :int)
