@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510204312) do
+ActiveRecord::Schema.define(version: 20170510233938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ingredient_recipes", force: :cascade do |t|
-    t.integer "ingredient_id"
-    t.integer "recipe_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
@@ -28,8 +21,15 @@ ActiveRecord::Schema.define(version: 20170510204312) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "recipe_tags", force: :cascade do |t|
+  create_table "keywords", force: :cascade do |t|
     t.integer "tag_id"
+    t.integer "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "meal", force: :cascade do |t|
+    t.integer "ingredient_id"
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20170510204312) do
 
   create_table "recipes", force: :cascade do |t|
     t.string "name"
-    t.integer "recipe_tag_id"
-    t.integer "ingredient_recipe_id"
+    t.integer "keyword_id"
+    t.integer "meal_id"
     t.string "instructions"
     t.integer "rating"
     t.datetime "created_at", null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20170510204312) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.integer "recipe_tag_id"
+    t.integer "keyword_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

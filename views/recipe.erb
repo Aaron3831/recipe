@@ -1,0 +1,31 @@
+<h2> <%= @recipe.name() %></h2>
+<hr>
+
+<% if @recipe.ingredient_recipe_id.any? %>
+  <h3>Here are the ingredients currently in this recipe:</h3>
+  <ul>
+    <% @recipe.ingredients.each() do |ingredient_recipes| %>
+      <li><%= ingredient_recipes.name %></li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p><strong>There are currently no ingredients assigned to this project.</strong></p>
+    <br>
+
+<% end %>
+
+<p>Add an ingredient to this recipe:<p>
+<form id="add_ingredient_id" action="/recipes/<%= @recipe.id() %>" method="post">
+  <input type="hidden" name="recipe_id" id="recipe_id" value="<%= @recipe.id() %>">
+  <label for="ingredient_id">Select an ingredient:  </label>
+    <br>
+  <select id="ingredient_id" name="ingredient_id">
+    <option value=""></option>
+    <% @ingredients.each() do |ingredient| %>
+      <option value="<%= ingredient.id() %>"><%= ingredient.name() %></option>
+    <% end %>
+  </select>
+  <button type="submit">Submit</button>
+</form>
