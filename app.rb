@@ -44,12 +44,21 @@ end
 get("/recipes/:id") do
   @recipe = Recipe.find(params.fetch("id").to_i())
   @ingredients = Ingredient.all()
+  @tags = Tag.all()
   erb(:recipe)
 end
 
-post ('/recipes/:id') do
+post ('/recipes/:id/ingredients') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   ingredient = Ingredient.find(params[:ingredient_id].to_i)
   @recipe.ingredients.push(ingredient)
+  redirect("/recipes/".concat(@recipe.id.to_s))
+end
+
+post ('/recipes/:id/tags') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  tag = Tag.find(params[:tag_id].to_i)
+  @recipe.tags.push(tag)
+binding.pry
   redirect("/recipes/".concat(@recipe.id.to_s))
 end

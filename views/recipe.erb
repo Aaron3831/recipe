@@ -16,8 +16,26 @@
 
 <% end %>
 
+<h2>  Tags:</h2>
+<hr>
+
+<% if @recipe.tags.any? %>
+  <h3>Here are the tags currently in this recipe:</h3>
+  <ul>
+    <% @recipe.tags.each() do |keyword| %>
+      <li><%= keyword.name %></li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p><strong>There are currently no tags assigned to this project.</strong></p>
+    <br>
+
+<% end %>
+
 <p>Add an ingredient to this recipe:<p>
-<form id="add_ingredient_id" action="/recipes/<%= @recipe.id() %>" method="post">
+<form id="add_ingredient_id" action="/recipes/<%= @recipe.id() %>/ingredients" method="post">
   <input type="hidden" name="recipe_id" id="recipe_id" value="<%= @recipe.id() %>">
   <label for="ingredient_id">Select an ingredient:  </label>
     <br>
@@ -25,6 +43,20 @@
     <option value=""></option>
     <% @ingredients.each() do |ingredient| %>
       <option value="<%= ingredient.id() %>"><%= ingredient.name() %></option>
+    <% end %>
+  </select>
+  <button type="submit">Submit</button>
+</form>
+
+<h3> Add a tag: </h3>
+<form id="add_tag_id" action="/recipes/<%= @recipe.id() %>/tags" method="post">
+  <input type="hidden" name="recipe_id" id="recipe_id" value="<%= @recipe.id() %>">
+  <label for="tag_id">Select a tag:  </label>
+    <br>
+  <select id="tag_id" name="tag_id">
+    <option value=""></option>
+    <% @tags.each() do |tag| %>
+      <option value="<%= tag.id() %>"><%= tag.name() %></option>
     <% end %>
   </select>
   <button type="submit">Submit</button>
