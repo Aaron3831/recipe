@@ -19,23 +19,6 @@ post ('/recipes') do
   redirect("/recipes")
 end
 
-# post("/ingredients") do
-#   name = params.fetch("ingredient_name")
-#   Ingredient.create({:name => name})
-#   redirect("/ingredients")
-# end
-
-# get("/ingredients/:id") do
-#   @ingredient = Ingredient.find(params.fetch("id").to_i())
-#   if @ingredient.recipe_id
-#     @recipe = Recipe.find(@ingredient.recipe_id)
-#   else
-#     @recipe = nil
-#   end
-#   @recipes = Recipe.all
-#   erb(:recipe)
-# end
-
 get ('/ingredients') do
   @ingredients = Ingredient.all()
   erb(:ingredients)
@@ -60,12 +43,13 @@ end
 
 get("/recipes/:id") do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  meal_id = Meal.find(params.fetch("id").to_i())
-  @tags = Tag.all
+  @ingredients = Ingredient.all()
   erb(:recipe)
 end
 
-get("/recipe/recipe_id/ingredients") do
-  @ingredients = Ingredient.all()
-  
+post ('/recipes/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  ingredient = Ingredient.find(params[:ingredient_id].to_i)
+  @recipe.ingredients.push(ingredient)
+  redirect("/recipes/".concat(@recipe.id.to_s))
 end
