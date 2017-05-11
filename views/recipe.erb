@@ -1,11 +1,11 @@
 <h2> <%= @recipe.name() %></h2>
 <hr>
 
-<% if @recipe.ingredient_recipe_id.any? %>
+<% if @recipe.meal.any? %>
   <h3>Here are the ingredients currently in this recipe:</h3>
   <ul>
-    <% @recipe.ingredients.each() do |ingredient_recipes| %>
-      <li><%= ingredient_recipes.name %></li>
+    <% @recipe.ingredients.each() do |meal| %>
+      <li><%= meal.name %></li>
     <% end %>
   </ul>
 

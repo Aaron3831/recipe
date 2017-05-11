@@ -36,9 +36,36 @@ end
 #   erb(:recipe)
 # end
 
+get ('/ingredients') do
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
+end
+
+post ('/ingredients') do
+  ingredient_name = params.fetch('ingredient_name')
+  @ingredients = Ingredient.create({:name => ingredient_name})
+  redirect("/ingredients")
+end
+
+get ('/tags') do
+  @tags = Tag.all()
+  erb(:tags)
+end
+
+post ('/tags') do
+  tag_name = params.fetch('tag_name')
+  @tags = Tag.create({:name => tag_name})
+  redirect("/tags")
+end
+
 get("/recipes/:id") do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  ingredient_recipe_id = RecipeIngredient.find(params.fetch("id").to_i())
+  meal_id = Meal.find(params.fetch("id").to_i())
   @tags = Tag.all
   erb(:recipe)
+end
+
+get("/recipe/recipe_id/ingredients") do
+  @ingredients = Ingredient.all()
+  
 end
